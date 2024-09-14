@@ -13,6 +13,8 @@ import com.example.player.model.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.*;
 
 @RestController
@@ -27,7 +29,11 @@ public class PlayerController {
 
     @GetMapping("/players/{playerId}")
     public Player getPlayerById(@PathVariable("playerId") int playerId) {
-        return playerService.getPlayerById(playerId);
+        Player player = playerService.getPlayerById(playerId);
+        if (player == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return player;
     }
 
     @PostMapping("/players")
@@ -41,7 +47,7 @@ public class PlayerController {
     }
 
     @DeleteMapping("/players/{playerId}")
-    public void deletePlayer(@PathVariable(playerId) int playerId) {
+    public void deletePlayer(@PathVariable("playerId") int playerId) {
         playerService.deletePlayer(playerId);
     }
 }

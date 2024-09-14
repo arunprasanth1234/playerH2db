@@ -50,15 +50,14 @@ public class PlayerH2Service implements PlayerRepository {
         db.update("insert into player(playerName, jerseyNumber, role) values(?,?,?)", player.getPlayerName(),
                 player.getJerseyNumber(), player.getRole());
         Player savedPlayer = db.queryForObject("select * from player where playerName=? and jerseyNumber=? and role=?",
-                new PlayerRowMapper(),
-                player.getPlayerName(), player.getJerseyNumber(), player.getRole());
+                new PlayerRowMapper(), player.getPlayerName(), player.getJerseyNumber(), player.getRole());
         return savedPlayer;
     }
 
     @Override
     public Player updatePlayer(int playerId, Player player) {
         if (player.getPlayerName() != null) {
-            db.update("update player set name=? where playerId=?", player.getPlayerName(), playerId);
+            db.update("update player set playerName=? where playerId=?", player.getPlayerName(), playerId);
 
         }
         if (player.getJerseyNumber() != null) {
@@ -67,7 +66,6 @@ public class PlayerH2Service implements PlayerRepository {
         }
         if (player.getRole() != null) {
             db.update("update player set role=? where playerId=?", player.getRole(), playerId);
-
         }
         return getPlayerById(playerId);
     }

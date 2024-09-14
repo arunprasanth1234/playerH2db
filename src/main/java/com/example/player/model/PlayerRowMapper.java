@@ -21,6 +21,7 @@ public class PlayerRowMapper implements RowMapper<Player> {
                 rs.getInt("PLAYERID"),
                 rs.getString("PLAYERNAME"),
                 rs.getInt("JERSEYNUMBER"),
-                rs.getString("ROLE"));
+                rs.getString("ROLE")
+        );
     }
 }
