@@ -14,13 +14,14 @@ import com.example.player.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.*;
 
 @RestController
 public class PlayerController {
     @Autowired
-    public PlayerH2Service playerService;
+    private PlayerH2Service playerService;
 
     @GetMapping("/players")
     public ArrayList<Player> getPlayers() {
@@ -29,11 +30,7 @@ public class PlayerController {
 
     @GetMapping("/players/{playerId}")
     public Player getPlayerById(@PathVariable("playerId") int playerId) {
-        Player player = playerService.getPlayerById(playerId);
-        if (player == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return player;
+        return playerService.getPlayerById(playerId);
     }
 
     @PostMapping("/players")
